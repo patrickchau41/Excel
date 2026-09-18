@@ -109,3 +109,29 @@ Using the **Order Date** timeline slicer to isolate each year, I compared averag
 - Average order value declined every year of the dataset: from **$47.05** (2019) to **$46.07** (2020), **$44.12** (2021), and **$42.55** (2022 through August).
 - Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time — both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on.
 - Note: 2022 reflects a partial year (data through August only), so it isn't a full 12-month comparison against the other years.
+
+# What I Learned
+
+Throughout this project, I strengthened several Excel skills:
+- **XLOOKUP**: Combined data spread across three separate sheets (orders, customers, products) into a single working table, rather than relying on manual copy-paste or VLOOKUP's more rigid column-order requirements.
+- **Pivot Tables**: Summarized 1,000+ transaction rows into clear breakdowns by time, country, and customer without writing a single formula by hand.
+- **Slicers & Interactive Dashboards**: Connected multiple pivot tables to a shared set of slicers, so a single filter (like Loyalty Card or Roast Type) updates every chart on the dashboard at once.
+- **Data Validation**: Learned to verify pivot table outputs against the raw data directly, after finding that cached pivot values can silently go stale and need a manual refresh — a reminder that a working dashboard isn't automatically an *accurate* one.
+
+# Conclusions
+
+### Insights:
+
+From the analysis, several general insights were gathered:
+
+1. **Sales Trends Over Time**: Monthly sales are volatile across all four coffee types, with no single type consistently dominating and no clear seasonal pattern across the four-year span.
+2. **Sales by Country**: The United States accounts for the vast majority of sales ($35,638.89), more than 5x Ireland and nearly 13x the United Kingdom — a heavily concentrated market.
+3. **Top Customers**: The top 5 customers are tightly clustered in spend ($278–$317), pointing to a broad customer base rather than reliance on a few large accounts.
+4. **Loyalty Card Impact**: Non-loyalty customers actually outspend loyalty members by $2.81 per order on average, suggesting the loyalty program isn't achieving its likely goal of driving higher-value orders.
+5. **Average Order Value Over Time**: Average order value declined every year of the dataset, reinforcing that spend per order — for loyalty and non-loyalty customers alike — has been trending downward.
+
+# Closing Thoughts
+
+This project strengthened my Excel data cleaning and dashboarding skills, while surfacing a genuinely useful business finding: the loyalty program, as currently structured, does not appear to be increasing customer spend — if anything, the opposite. Beyond the technical work of combining sheets with XLOOKUP and building an interactive dashboard, this project reinforced the importance of validating a dashboard's outputs against the underlying raw data, since a pivot table can look complete and still be showing outdated numbers. For a business stakeholder, the loyalty card finding alone would be worth a follow-up conversation: either the program needs to be redesigned, or the definition of "success" for it needs to be revisited.
+- Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time — both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on.
+- Note: 2022 reflects a partial year (data through August only), so it isn't a full 12-month comparison against the other years.
