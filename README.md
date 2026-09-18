@@ -10,6 +10,8 @@ Cleans and combines a coffee sales dataset (1,000+ transactions, 2019–2026) sp
 
 ## Tools Used
 
-- **Excel:** data cleaning, XLOOKUP, Pivot Tables
-- **Excel Charts & Slicers:** interactive dashboarding
-- **Git & GitHub:** version control
+- **Excel:** cleaning and transforming raw, multi-sheet datasets into analysis-ready tables
+- **XLOOKUP:** combining data spread across separate sheets by shared IDs, without relying on rigid column ordering
+- **Pivot Tables:** summarizing thousands of transaction-level rows into clear breakdowns by time, category, and customer
+- **Slicers & Interactive Dashboards:** connecting multiple charts to shared filters so a single click updates the full view
+- **Git & GitHub:** version control and project sharing
