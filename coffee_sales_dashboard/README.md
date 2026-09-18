@@ -1,5 +1,5 @@
 # The Overview
-This project is a data cleaning and dashboard analysis of a coffee sales dataset (sourced from Kaggle), covering 1,000+ transactions from 2019 through mid-2022. The raw data was split across three separate sheets — orders, customers, and products — with no single sheet containing everything needed for analysis. I combined and cleaned this data using XLOOKUP and pivot tables, then built an interactive dashboard to explore sales by coffee type, country, roast type, bag size, and loyalty card status.
+This project is a data cleaning and dashboard analysis of a coffee sales dataset (sourced from Kaggle), covering 1,000+ transactions from 2019 through mid-2022. The raw data was split across three separate sheets (orders, customers, and products)  with no single sheet containing everything needed for analysis. I combined and cleaned this data using XLOOKUP and pivot tables, then built an interactive dashboard to explore sales by coffee type, country, roast type, bag size, and loyalty card status.
 
 # The Questions
 Below are the questions I want to answer in my project:
@@ -15,7 +15,7 @@ Below are the questions I want to answer in my project:
 
 # Workbook Structure
 The file is organized into the following sheets:
-- **orders**: The main transaction-level table (1,000+ rows) — Order ID, Order Date, Customer ID, Product ID, Quantity, Sales, and lookup fields (Customer Name, Country, Coffee Type, Roast Type, Size, Loyalty Card) pulled in via XLOOKUP.
+- **orders**: The main transaction-level table (1,000+ rows) including Order ID, Order Date, Customer ID, Product ID, Quantity, Sales, and lookup fields (Customer Name, Country, Coffee Type, Roast Type, Size, Loyalty Card) pulled in via XLOOKUP.
 - **customers**: Raw customer reference data (name, email, country, loyalty card status).
 - **products**: Raw product reference data (coffee type, roast type, size, unit price).
 - **Total Sales**: A pivot table breaking down sales by year, month, and coffee type.
@@ -54,7 +54,7 @@ The dashboard's line chart tracks monthly sales for all four coffee types (Arabi
 
 ### Insights
 
-- Monthly sales are highly volatile across all four coffee types, with no single type consistently dominating — different types spike in different months, suggesting demand shifts rather than one steady bestseller.
+- Monthly sales are highly volatile across all four coffee types, with no single type consistently dominating (different types spike in different months, suggesting demand shifts rather than one steady bestseller).
 - No clear seasonal pattern emerges across the four-year span; peaks and dips appear scattered rather than tied to a specific time of year.
 
 ## 2. Which countries drive the most sales?
@@ -67,7 +67,7 @@ Built from the **Country BarChart** pivot table, this breaks down total sales by
 
 ### Insights
 
-- The **United States** drives the vast majority of sales, totaling **$35,638.89** — more than 5x Ireland ($6,696.87) and nearly 13x the United Kingdom ($2,798.51).
+- The **United States** drives the vast majority of sales, totaling **$35,638.89** (more than 5x Ireland ($6,696.87) and nearly 13x the United Kingdom ($2,798.51)).
 - Sales are heavily concentrated in a single market, which could represent either a genuine market-size difference or a gap in international distribution/marketing worth investigating further.
 
 ## 3. Who are the top customers by total spend?
@@ -80,7 +80,7 @@ Built from the **Country BarChart (2)** pivot table, this ranks the top 5 custom
 
 ### Insights
 
-- The top 5 customers are tightly clustered in spend, ranging from $278.01 (Don Flintiff) to $317.07 (Allis Wilmore) — no single customer dominates total revenue.
+- The top 5 customers are tightly clustered in spend, ranging from $278.01 (Don Flintiff) to $317.07 (Allis Wilmore) (no single customer dominates total revenue).
 - This suggests a broad, distributed customer base rather than a business that's reliant on a small number of high-value accounts.
 
 ## 4. Does loyalty card membership actually increase average order value?
@@ -93,7 +93,7 @@ Using the **Loyalty Card** slicer on the dashboard alongside the underlying orde
 
 ### Insights
 
-- **Non-loyalty customers outspent loyalty program members by $2.81 per order** on average ($46.48 vs. $43.67) — a counter-intuitive finding that suggests the loyalty program isn't translating into higher order values for the customers enrolled in it.
+- **Non-loyalty customers outspent loyalty program members by $2.81 per order** on average ($46.48 vs. $43.67) (a counter-intuitive finding that suggests the loyalty program isn't translating into higher order values for the customers enrolled in it).
 - This is worth flagging to whoever manages the loyalty program: the incentive may need to be redesigned if the goal is to drive larger orders.
 
 ## 5. Has average order value changed over the life of the dataset?
@@ -107,7 +107,7 @@ Using the **Order Date** timeline slicer to isolate each year, I compared averag
 ### Insights
 
 - Average order value declined every year of the dataset: from **$47.05** (2019) to **$46.07** (2020), **$44.12** (2021), and **$42.55** (2022 through August).
-- Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time — both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on.
+- Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time (both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on).
 - Note: 2022 reflects a partial year (data through August only), so it isn't a full 12-month comparison against the other years.
 
 # What I Learned
@@ -116,7 +116,7 @@ Throughout this project, I strengthened several Excel skills:
 - **XLOOKUP**: Combined data spread across three separate sheets (orders, customers, products) into a single working table, rather than relying on manual copy-paste or VLOOKUP's more rigid column-order requirements.
 - **Pivot Tables**: Summarized 1,000+ transaction rows into clear breakdowns by time, country, and customer without writing a single formula by hand.
 - **Slicers & Interactive Dashboards**: Connected multiple pivot tables to a shared set of slicers, so a single filter (like Loyalty Card or Roast Type) updates every chart on the dashboard at once.
-- **Data Validation**: Learned to verify pivot table outputs against the raw data directly, after finding that cached pivot values can silently go stale and need a manual refresh — a reminder that a working dashboard isn't automatically an *accurate* one.
+- **Data Validation**: Learned to verify pivot table outputs against the raw data directly, after finding that cached pivot values can silently go stale and need a manual refresh (a reminder that a working dashboard isn't automatically an *accurate* one).
 
 # Conclusions
 
@@ -125,13 +125,13 @@ Throughout this project, I strengthened several Excel skills:
 From the analysis, several general insights were gathered:
 
 1. **Sales Trends Over Time**: Monthly sales are volatile across all four coffee types, with no single type consistently dominating and no clear seasonal pattern across the four-year span.
-2. **Sales by Country**: The United States accounts for the vast majority of sales ($35,638.89), more than 5x Ireland and nearly 13x the United Kingdom — a heavily concentrated market.
+2. **Sales by Country**: The United States accounts for the vast majority of sales ($35,638.89), more than 5x Ireland and nearly 13x the United Kingdom (a heavily concentrated market).
 3. **Top Customers**: The top 5 customers are tightly clustered in spend ($278–$317), pointing to a broad customer base rather than reliance on a few large accounts.
 4. **Loyalty Card Impact**: Non-loyalty customers actually outspend loyalty members by $2.81 per order on average, suggesting the loyalty program isn't achieving its likely goal of driving higher-value orders.
-5. **Average Order Value Over Time**: Average order value declined every year of the dataset, reinforcing that spend per order — for loyalty and non-loyalty customers alike — has been trending downward.
+5. **Average Order Value Over Time**: Average order value declined every year of the dataset, reinforcing that spend per order for loyalty and non-loyalty customers alike, has been trending downward.
 
 # Closing Thoughts
 
-This project strengthened my Excel data cleaning and dashboarding skills, while surfacing a genuinely useful business finding: the loyalty program, as currently structured, does not appear to be increasing customer spend — if anything, the opposite. Beyond the technical work of combining sheets with XLOOKUP and building an interactive dashboard, this project reinforced the importance of validating a dashboard's outputs against the underlying raw data, since a pivot table can look complete and still be showing outdated numbers. For a business stakeholder, the loyalty card finding alone would be worth a follow-up conversation: either the program needs to be redesigned, or the definition of "success" for it needs to be revisited.
-- Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time — both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on.
+This project strengthened my Excel data cleaning and dashboarding skills, while surfacing a genuinely useful business finding: the loyalty program, as currently structured, does not appear to be increasing customer spend (if anything, the opposite). Beyond the technical work of combining sheets with XLOOKUP and building an interactive dashboard, this project reinforced the importance of validating a dashboard's outputs against the underlying raw data, since a pivot table can look complete and still be showing outdated numbers. For a business stakeholder, the loyalty card finding alone would be worth a follow-up conversation: either the program needs to be redesigned, or the definition of "success" for it needs to be revisited.
+- Combined with the loyalty card finding above, this reinforces that the loyalty program failed to sustain customer spend over time (both loyalty members specifically, and the customer base as a whole, are spending less per order as time goes on).
 - Note: 2022 reflects a partial year (data through August only), so it isn't a full 12-month comparison against the other years.
