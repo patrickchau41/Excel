@@ -40,7 +40,7 @@ The final dashboard is fully interactive, with the following controls:
 - **Size** filter (0.2kg, 0.5kg, 1.0kg, 2.5kg)
 - **Loyalty Card** filter (Yes/No)
 
-![Coffee Sales Overview Dashboard](assets/dashboard_overview.png)
+![Coffee Sales Overview Dashboard](assets/dashboard_overview.pdf)
 
 # The Analysis
 
