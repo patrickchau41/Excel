@@ -10,6 +10,6 @@ Cleans and combines a coffee sales dataset (1,000+ transactions, 2019–2026) sp
 
 ## Tools Used
 
-- **Excel** — data cleaning, XLOOKUP, Pivot Tables
-- **Excel Charts & Slicers** — interactive dashboarding
-- **Git & GitHub** — version control
+- **Excel:** data cleaning, XLOOKUP, Pivot Tables
+- **Excel Charts & Slicers:** interactive dashboarding
+- **Git & GitHub:** version control
