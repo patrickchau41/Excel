@@ -8,7 +8,7 @@ A collection of Excel projects showcasing end-to-end data work, from cleaning an
 
 Cleans and combines a coffee sales dataset (1,000+ transactions, 2019–2026) spread across three separate sheets, then builds an interactive dashboard to explore sales by coffee type, country, roast type, bag size, and loyalty card status. Uncovers a counter-intuitive finding: non-loyalty customers outspend loyalty program members by $2.81 per order, and average order value has declined every year of the dataset. **Techniques:** XLOOKUP, Pivot Tables, Slicers, interactive dashboarding.
 
-### [E-Commerce Marketing & Customer Analytics](ecommerce_marketing_analytics)
+### [E-Commerce Marketing & Customer Analytics](ecommerce_analytics)
 
 Analyzes a 138,000+ order e-commerce dataset (2021–2025, 24,900+ customers) across seven business questions, from marketing channel performance to RFM-based customer segmentation and product category profitability, then builds an interactive dashboard surfacing the results. Finds that top customers generate 71% more value than their size alone would predict, while an 18.62 percentage point profit margin gap between product categories reveals a real opportunity to reallocate marketing spend. Two misleading results, a regional margin gap and an inflated customer value ratio, were traced back to artifacts in the data and reported honestly rather than presented as findings. **Techniques:** RFM segmentation, XLOOKUP, Pivot Tables, PivotCharts, conditional formatting.
 
