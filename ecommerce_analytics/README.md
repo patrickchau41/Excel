@@ -1,4 +1,4 @@
-# E-Commerce Marketing & Customer Analytics (Excel)
+# E-Commerce Marketing & Customer Analytics in Excel
 
 ## The Overview
 
