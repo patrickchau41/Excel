@@ -6,6 +6,8 @@ This project analyzes a 138,116 order e-commerce dataset spanning 2021 to 2025, 
 
 Rather than treating each question as an isolated chart, this project follows a consistent investigative approach throughout: test the obvious explanation first, check for hidden interaction effects before accepting a flat result, and rule out plausible alternative causes before finalizing a finding. Two apparent leads (a regional profit margin gap and a very high CLV to CAC ratio) were investigated and found to be artifacts of how the dataset itself was built rather than genuine business signals, and are reported honestly as such rather than presented as real findings.
 
+![Dashboard Overview](dashboard_overview.png)
+
 ## The Questions
 
 1. Does marketing channel drive different order economics, and does that hold across every customer segment?
@@ -38,6 +40,20 @@ A key technical decision shaped how Question 3 was built. At this scale (24,911 
 
 A PivotTable comparing all ten marketing channels (Affiliate, Direct, Email Marketing, Facebook Ads, Google Ads, Instagram, Organic Search, Referral, TikTok, YouTube) on Order Count, Average Order Value, Average Profit per Order, Average Profit Margin, and Return Rate. A supporting cross tab further broke margin down by channel and customer segment together, to check whether the overall pattern was hiding something underneath.
 
+| Channel | Order Count | Avg Order Value | Avg Profit per Order | Avg Profit Margin % | Return Rate |
+|---|---|---|---|---|---|
+| Affiliate | 4.96% | $1,289.12 | $555.72 | 45.11% | 6.66% |
+| Direct | 14.85% | $1,273.11 | $549.86 | 45.19% | 7.06% |
+| Email Marketing | 8.12% | $1,285.47 | $550.70 | 44.96% | 6.73% |
+| Facebook Ads | 12.06% | $1,283.55 | $551.87 | 44.89% | 6.87% |
+| Google Ads | 14.94% | $1,286.32 | $550.40 | 44.96% | 6.83% |
+| Instagram | 9.99% | $1,280.81 | $549.63 | 45.07% | 6.70% |
+| Organic Search | 20.09% | $1,285.35 | $551.99 | 45.07% | 6.95% |
+| Referral | 8.10% | $1,281.58 | $552.81 | 45.22% | 6.61% |
+| TikTok | 3.94% | $1,283.83 | $553.97 | 45.14% | 6.90% |
+| YouTube | 2.95% | $1,274.02 | $549.06 | 45.35% | 6.86% |
+| **Grand Total** | **100.00%** | **$1,282.50** | **$551.32** | **45.07%** | **6.85%** |
+
 **Results**
 
 Every metric came back nearly flat across all ten channels. Average Order Value ranged from $1,273.11 to $1,289.12, a 1.3% spread. Average Profit Margin ranged from 44.89% to 45.35%. Return Rate ranged from 6.61% to 7.06%. The supporting cross tab confirmed this held true within every customer segment individually as well, Business and Consumer customers consistently showed roughly 46% margin and Premium and VIP customers consistently showed roughly 43% margin, regardless of which of the ten channels the order came through.
@@ -56,6 +72,8 @@ Deprioritize channel based budget reallocation entirely. Since no channel shows 
 
 A primary PivotTable comparing the four customer segments (Business, Consumer, Premium, VIP) on Order Count, Average Order Value, Total Profit, Average Profit per Order, Average Margin, and Return Rate. A supporting table broke down Average Discount, Discount Rate, and Product Cost Rate by segment to identify the mechanism behind any gap found.
 
+![Discount Rate by Segment](Q2_Discount_Rate.png)
+
 **Results**
 
 Premium and VIP customers generated meaningfully less profit per order ($523 to $528) than Business and Consumer customers ($565 to $566), a 7.2% relative gap, despite Premium and VIP actually spending slightly more per order before any discount ($1,423 to $1,430 in gross sales, versus $1,347 to $1,355 for Business and Consumer). The supporting table found the cause: Premium and VIP customers received discount rates roughly four percentage points higher (17.7% of gross sales versus 13.7%). Product cost rate, checked as an alternative explanation, came back nearly identical across all four segments (48.62% to 48.69%) once measured directly, ruling it out. A further check controlling for cart size confirmed the discount gap held even when comparing orders of the same size, and loyalty point activity was checked and also ruled out, showing no meaningful difference by segment.
@@ -73,6 +91,8 @@ Test a reduced discount rate for Premium and VIP customers, moving from the curr
 **Visualize Data**
 
 Recency, Frequency, and Monetary values were aggregated per customer using a PivotTable, then scored 1 through 5 using percentile breakpoints calculated from the actual data distribution rather than fixed thresholds. A snapshot date was fixed at January 1, 2026, one day after the latest order in the dataset (December 31, 2025), rather than using the live current date, so the analysis stays reproducible regardless of when the workbook is reopened. Customers were classified into six behavioral segments (Champions, Loyal Customers, At Risk, Needs Attention, New or Promising, Lost) using pattern based logic rather than a simple score total, since a raw sum concentrated too heavily in the middle to produce useful groups. Customer Lifetime Value and Customer Acquisition Cost were pulled in via INDEX and MATCH, and a segment level summary table was built comparing Customer Count percentage, Sum of Monetary percentage, Average CLV, Average CAC, Average CLV to CAC Ratio, Average Frequency, and Average Recency.
+
+![Value Index by Customer Segment](Q3_Value_Index.png)
 
 **Results**
 
@@ -94,6 +114,8 @@ Launch a win back campaign targeting the At Risk segment specifically, rather th
 
 Three PivotTables were built: return rate by region, order count by return reason, and return rate grouped by year to check for a trend over time. A supporting check broke return reason mix down by year as well, to test whether any rising trend was concentrated in one specific cause.
 
+![Return Rate Trend by Year](Q4_Return_Rate.png)
+
 **Results**
 
 Return rate by region ranged narrowly from 6.40% (East) to 7.11% (Central and North), a 0.71 percentage point spread. Return reason counts, across all eight categories from Wrong Product to Damaged Product, fell within about 100 orders of each other (1,138 to 1,237), with no single cause dominating. The year over year breakdown told a different story: return rate climbed steadily and consistently, from 6.62% in 2021 and 2022 up to 7.15% in 2025. The follow up check confirmed this increase was broad based, the proportional mix of return reasons stayed essentially constant across every year, meaning the rise was not driven by any single cause getting worse.
@@ -111,6 +133,8 @@ Treat rising return rates as an ongoing, company wide priority rather than a sta
 **Visualize Data**
 
 A PivotTable comparing the four shipping methods (Economy, Standard, Express, Same Day) on Order Count, Average Gross Sales, Average Shipping Cost, and Average Profit Margin.
+
+![Shipping Cost vs. Margin](Q5_Shipping_Speed.png)
 
 **Results**
 
@@ -130,6 +154,8 @@ Audit Express and Same Day shipping pricing specifically. Since customers are no
 
 A PivotTable comparing all sixteen named marketing campaigns (excluding a Default Campaign catch all label for untracked orders) on Order Count, Average Order Value, Average Profit per Order, Total Profit, Average Profit Margin, and Average Discount.
 
+![Campaign Margin, Sorted](Q6_Campaign_ROI.png)
+
 **Results**
 
 Referral_Program ranked highest on profit margin (45.35%) while also carrying one of the lower average discounts ($230.60). FB_Dynamic ranked lowest on margin (44.47%) with an above average discount ($249.39). Across all sixteen campaigns, a moderate correlation (negative 0.459) was found between average discount and average margin, campaigns leaning on deeper discounts tended to run lower margins, a real but less pronounced version of the pattern already confirmed at the customer segment level in Question 2.
@@ -148,6 +174,8 @@ Shift incremental marketing budget toward Referral_Program, the strongest perfor
 
 A PivotTable built from order line item data, joined to the product catalog for category, comparing all 15 product categories on Line Item Count, Total Net Sales, Total Profit, Return Rate, and Average Margin (calculated per line item, consistent with how margin is defined everywhere else in this project).
 
+![Category Margin Ranking](Q7_Category_Margin.png)
+
 **Results**
 
 Profit margin varies dramatically by category, from 34.15% (Electronics) to 52.77% (Grocery), an 18.62 percentage point spread, the largest gap found anywhere in this project. Line item count stayed fairly even across categories (roughly 5.76% to 7.70% share each), ruling out volume as the explanation. Return rate also stayed flat by category (6.55% to 7.23%), so this is a genuine margin story, not a returns story. A supporting check found that Electronics, despite having the lowest margin percentage of any category, still generates the single highest total profit in dollar terms (roughly $14.1 million), more than any other category, driven entirely by its much larger sales volume.
@@ -162,7 +190,13 @@ Weight marketing and promotional effort toward higher margin categories such as 
 
 **Supporting Analysis: Sales vs. Profit by Category, and Top 5 Products**
 
-Two additional PivotTables were built to stress test the category margin finding before finalizing a recommendation. The first, comparing Total Sales and Total Profit by category side by side, confirmed that Electronics leads every other category in both measures (roughly $41.1 million in sales, $14.1 million in profit), nearly double the next highest category, Jewelry, in profit dollars, despite sitting at the bottom on margin percentage. The second, a Top 5 Products by Total Profit ranking built from individual product records, reinforced the same pattern from a different angle: four of the five single highest profit generating products in the entire catalog are Electronics items (a gaming console, a smart watch, a smartphone, and a camera), with the fifth being a Jewelry pendant, the same two categories that rank lowest on margin.
+Two additional PivotTables were built to stress test the category margin finding before finalizing a recommendation. The first, comparing Total Sales and Total Profit by category side by side, confirmed that Electronics leads every other category in both measures (roughly $41.1 million in sales, $14.1 million in profit), nearly double the next highest category, Jewelry, in profit dollars, despite sitting at the bottom on margin percentage.
+
+![Sales vs. Profit by Category](Sales_vs_Profit.png)
+
+The second, a Top 5 Products by Total Profit ranking built from individual product records, reinforced the same pattern from a different angle: four of the five single highest profit generating products in the entire catalog are Electronics items (a gaming console, a smart watch, a smartphone, and a camera), with the fifth being a Jewelry pendant, the same two categories that rank lowest on margin.
+
+![Top 5 Products by Total Profit](Top5_Products.png)
 
 Together, these two checks matter directly for the overarching question of how marketing budget should be allocated. A margin only view would suggest de-emphasizing Electronics. A profit dollars view shows Electronics is simultaneously the single most valuable category to this business in absolute terms. The correct read is not that one number is right and the other wrong, it is that budget allocation needs to weigh both, protecting and continuing to invest in Electronics given its scale, while shifting incremental, growth oriented spend toward higher margin categories where a marketing dollar converts more efficiently into profit.
 
