@@ -6,7 +6,7 @@ This project analyzes a 138,116 order e-commerce dataset spanning 2021 to 2025, 
 
 Rather than treating each question as an isolated chart, this project follows a consistent investigative approach throughout: test the obvious explanation first, check for hidden interaction effects before accepting a flat result, and rule out plausible alternative causes before finalizing a finding. Two apparent leads (a regional profit margin gap and a very high CLV to CAC ratio) were investigated and found to be artifacts of how the dataset itself was built rather than genuine business signals, and are reported honestly as such rather than presented as real findings.
 
-![Dashboard Overview](dashboard_overview.png)
+![Dashboard Overview](assets/dashboard_overview.png)
 
 ## The Questions
 
@@ -72,7 +72,7 @@ Deprioritize channel based budget reallocation entirely. Since no channel shows 
 
 A primary PivotTable comparing the four customer segments (Business, Consumer, Premium, VIP) on Order Count, Average Order Value, Total Profit, Average Profit per Order, Average Margin, and Return Rate. A supporting table broke down Average Discount, Discount Rate, and Product Cost Rate by segment to identify the mechanism behind any gap found.
 
-![Discount Rate by Segment](Q2_Discount_Rate.png)
+![Discount Rate by Segment](assets/Q2_Discount_Rate.png)
 
 **Results**
 
@@ -92,7 +92,7 @@ Test a reduced discount rate for Premium and VIP customers, moving from the curr
 
 Recency, Frequency, and Monetary values were aggregated per customer using a PivotTable, then scored 1 through 5 using percentile breakpoints calculated from the actual data distribution rather than fixed thresholds. A snapshot date was fixed at January 1, 2026, one day after the latest order in the dataset (December 31, 2025), rather than using the live current date, so the analysis stays reproducible regardless of when the workbook is reopened. Customers were classified into six behavioral segments (Champions, Loyal Customers, At Risk, Needs Attention, New or Promising, Lost) using pattern based logic rather than a simple score total, since a raw sum concentrated too heavily in the middle to produce useful groups. Customer Lifetime Value and Customer Acquisition Cost were pulled in via INDEX and MATCH, and a segment level summary table was built comparing Customer Count percentage, Sum of Monetary percentage, Average CLV, Average CAC, Average CLV to CAC Ratio, Average Frequency, and Average Recency.
 
-![Value Index by Customer Segment](Q3_Value_Index.png)
+![Value Index by Customer Segment](assets/Q3_Value_Index.png)
 
 **Results**
 
@@ -114,7 +114,7 @@ Launch a win back campaign targeting the At Risk segment specifically, rather th
 
 Three PivotTables were built: return rate by region, order count by return reason, and return rate grouped by year to check for a trend over time. A supporting check broke return reason mix down by year as well, to test whether any rising trend was concentrated in one specific cause.
 
-![Return Rate Trend by Year](Q4_Return_Rate.png)
+![Return Rate Trend by Year](assets/Q4_Return_Rate.png)
 
 **Results**
 
@@ -134,7 +134,7 @@ Treat rising return rates as an ongoing, company wide priority rather than a sta
 
 A PivotTable comparing the four shipping methods (Economy, Standard, Express, Same Day) on Order Count, Average Gross Sales, Average Shipping Cost, and Average Profit Margin.
 
-![Shipping Cost vs. Margin](Q5_Shipping_Speed.png)
+![Shipping Cost vs. Margin](assets/Q5_Shipping_Speed.png)
 
 **Results**
 
@@ -154,7 +154,7 @@ Audit Express and Same Day shipping pricing specifically. Since customers are no
 
 A PivotTable comparing all sixteen named marketing campaigns (excluding a Default Campaign catch all label for untracked orders) on Order Count, Average Order Value, Average Profit per Order, Total Profit, Average Profit Margin, and Average Discount.
 
-![Campaign Margin, Sorted](Q6_Campaign_ROI.png)
+![Campaign Margin, Sorted](assets/Q6_Campaign_ROI.png)
 
 **Results**
 
@@ -174,7 +174,7 @@ Shift incremental marketing budget toward Referral_Program, the strongest perfor
 
 A PivotTable built from order line item data, joined to the product catalog for category, comparing all 15 product categories on Line Item Count, Total Net Sales, Total Profit, Return Rate, and Average Margin (calculated per line item, consistent with how margin is defined everywhere else in this project).
 
-![Category Margin Ranking](Q7_Category_Margin.png)
+![Category Margin Ranking](assets/Q7_Category_Margin.png)
 
 **Results**
 
@@ -192,11 +192,11 @@ Weight marketing and promotional effort toward higher margin categories such as 
 
 Two additional PivotTables were built to stress test the category margin finding before finalizing a recommendation. The first, comparing Total Sales and Total Profit by category side by side, confirmed that Electronics leads every other category in both measures (roughly $41.1 million in sales, $14.1 million in profit), nearly double the next highest category, Jewelry, in profit dollars, despite sitting at the bottom on margin percentage.
 
-![Sales vs. Profit by Category](Sales_vs_Profit.png)
+![Sales vs. Profit by Category](assets/Sales_vs_Profit.png)
 
 The second, a Top 5 Products by Total Profit ranking built from individual product records, reinforced the same pattern from a different angle: four of the five single highest profit generating products in the entire catalog are Electronics items (a gaming console, a smart watch, a smartphone, and a camera), with the fifth being a Jewelry pendant, the same two categories that rank lowest on margin.
 
-![Top 5 Products by Total Profit](Top5_Products.png)
+![Top 5 Products by Total Profit](assets/Top5_Products.png)
 
 Together, these two checks matter directly for the overarching question of how marketing budget should be allocated. A margin only view would suggest de-emphasizing Electronics. A profit dollars view shows Electronics is simultaneously the single most valuable category to this business in absolute terms. The correct read is not that one number is right and the other wrong, it is that budget allocation needs to weigh both, protecting and continuing to invest in Electronics given its scale, while shifting incremental, growth oriented spend toward higher margin categories where a marketing dollar converts more efficiently into profit.
 
