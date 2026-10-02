@@ -1,221 +1,167 @@
-# E-Commerce Marketing & Customer Analytics in Excel
-
 ## The Overview
-
-This project analyzes a 138,116 order e-commerce dataset spanning 2021 to 2025, using native Excel PivotTables and formulas, to answer a single strategic question for the business: how should it allocate its marketing budget and manage its customer relationships to maximize profitability. The dataset (sourced from Kaggle, synthetic but realistically structured) covers 24,911 customers across four sales channels, ten marketing channels, and seventeen named marketing campaigns. Raw transaction and order-item data (138,000+ and 397,000+ rows) is available from the original Kaggle dataset; this workbook includes the smaller reference tables along with all analysis, PivotTables, and the dashboard.
-
-Rather than treating each question as an isolated chart, this project follows a consistent investigative approach throughout: test the obvious explanation first, check for hidden interaction effects before accepting a flat result, and rule out plausible alternative causes before finalizing a finding. Two apparent leads (a regional profit margin gap and a very high CLV to CAC ratio) were investigated and found to be artifacts of how the dataset itself was built rather than genuine business signals, and are reported honestly as such rather than presented as real findings.
-
-![Dashboard Overview](assets/dashboard_overview.png)
+This project is a PivotTable based analysis and dashboard build on an e-commerce dataset (sourced from Kaggle), covering 138,116 orders from 2021 through 2025. The raw data arrived as five related files (main transactions, customer master, order items, product catalog, and summary statistics), with product level detail split out from the main transaction file. I combined what was needed using XLOOKUP and PivotTables, then built an interactive dashboard to explore marketing channel performance, customer segment profitability, RFM based customer value, return rates, shipping economics, campaign ROI, and product category margin, all in service of one question: how should this business allocate its marketing budget and manage its customer relationships to maximize profitability.
 
 ## The Questions
+Below are the questions I want to answer in my project:
 
-1. Does marketing channel drive different order economics, and does that hold across every customer segment?
-2. How does customer segment relate to actual profitability, and what is driving the gap?
-3. What does RFM segmentation and CLV to CAC reveal about customer value?
-4. Which factors drive the highest return rates?
-5. Does shipping speed erode profit margin, and is it priced appropriately?
-6. Which marketing campaigns actually drove profitable orders?
-7. Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
+Does marketing channel drive different order economics, and does that hold across every customer segment?
+How does customer segment relate to actual profitability, and what is driving the gap?
+What does RFM segmentation and CLV to CAC reveal about customer value?
+Which factors drive the highest return rates?
+Does shipping speed erode profit margin, and is it priced appropriately?
+Which marketing campaigns actually drove profitable orders?
+Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
 
 ## Tools I Used
+Excel: For data cleaning, joining files with XLOOKUP, and summarizing data with PivotTables.
+Excel Charts: To build the interactive dashboard, including a Line chart, Bar and Column charts, and a Combo chart, color coded to highlight best and worst performers throughout.
+Excel Formulas (RFM Analysis): PERCENTILE based scoring, INDEX/MATCH, and a Calculated Field built directly into a PivotTable to build a customer segmentation and value model, with no external tools required.
 
-Microsoft Excel, specifically native PivotTables for all group level aggregation, percentile based formulas for RFM scoring, INDEX and MATCH for cross sheet lookups, conditional formatting, and PivotCharts.
+## Workbook Structure
+The file is organized into the following sheets:
 
-## Data Preparation and Cleaning
+ecommerce_sales_customer_analytics_150k: The main transaction level table (138,116 rows): order details, customer segment, region, sales channel, marketing channel, campaign name, return status, profit, and margin.
+customer_master: Raw customer reference data (demographics, region, Customer Acquisition Cost).
+product_catalog: Raw product reference data (category, subcategory, brand, cost, rating).
+order_items: Line item level table (397,569 rows), joined to product_catalog and the main transaction file to support the product category analysis.
+Q1_Channel_Performance / Q1_Channel_x_Segment: Channel level order economics, overall and by segment.
+Q2_Segment_Profitability / Q2_Margin_Drivers / Q2_Discount_Chart: Segment level profitability and the discount rate driving the gap.
+Q3_RFM_Base / RFM Scoring / Q3_Segment_Value: Customer level RFM aggregation, scoring, and the final segment value summary.
+Q4_Returns_by_Region / Q4_Returns_by_Reason / Q4_Returns_by_Year / Q4_Reason_by_Year: Return rate broken down four different ways.
+Q5_Shipping_Margin: Shipping method economics and margin impact.
+Q6_Chart: Campaign level margin comparison.
+Q7_Category_Margin / Sales_vs_Profit_Category / Top5_Products_Chart: Product category margin and two supporting checks.
+Dashboard: The final interactive dashboard, pulling together the four featured findings into one view.
 
-The dataset arrived as five related files: a 138,116 row main transaction file, a 25,000 row customer master file, a 397,569 row order items file, a product catalog, and a pre computed summary statistics file. The first six questions in this project relied entirely on the main transaction file, which already contained everything needed (customer segment, region, sales channel, marketing channel, campaign name, return status, profit, and margin), so the order items and product catalog files were initially left out, since including roughly 400,000 additional rows would not have improved any of those six answers.
+View the file here: Ecommerce_Marketing_Analytics.xlsx
 
-Question 7 was the exception, and it specifically needed product level detail the main transaction file did not contain, so the order items file was brought in and joined to the product catalog using XLOOKUP to pull in product category and product name, and to the main transaction file to pull in return status. This is also where an important technical lesson from this project applied directly: category level PivotTable groupings were kept on product_id, a field guaranteed to be unique per product, rather than on any simplified display label, after an earlier version of a related chart revealed that grouping by a shortened, non unique label could silently combine two different products into one row and inflate their combined total.
+## Data Cleaning
+The raw dataset needed real joining and verification work before analysis:
 
-The main transaction file served as the source table for every other PivotTable in this project. The one other exception was customer acquisition cost, which lived only in the customer master file and was pulled in via INDEX and MATCH for the RFM analysis in Question 3.
+Joined order_items to product_catalog and the main transaction file using XLOOKUP, based on product_id and order_id.
+Grouped product categories on product_id specifically rather than a shortened display label, after an earlier version showed that grouping by a non unique label could silently combine two different products into one row.
+Pulled Customer Acquisition Cost into the RFM workbook from customer_master using INDEX and MATCH.
+Verified pivot table outputs against independently calculated numbers at several points, catching a regional margin gap that turned out to be a sales tax artifact, and an inflated CLV to CAC ratio that turned out to be a scaling artifact, before either was reported as a finding.
 
-A key technical decision shaped how Question 3 was built. At this scale (24,911 customers, 138,116 orders), calculating Recency, Frequency, and Monetary values with per row formulas scanning the full order table for each customer would have meant tens of thousands of slow lookups. Instead, a PivotTable was used to aggregate Recency, Frequency, and Monetary per customer first, since PivotTables are built specifically for fast group level aggregation, and the scoring and segmentation formulas were layered on top of that smaller, already aggregated table.
+## The Dashboard
+The final dashboard features the four sharpest findings from the full analysis, with the following design:
+
+KPI row (Total Revenue, Total Profit, Overall Margin, Top Category)
+Category Margin Ranking (Line chart, gradient colored by performance)
+Value Index by Customer Segment (Bar chart)
+Discount Rate by Segment (Column chart)
+Campaign Margin Comparison (Bar chart)
+Dashboard Overview
 
 ## The Analysis
+### 1. Does marketing channel drive different order economics, and does that hold across every customer segment?
+Built from a PivotTable comparing all ten marketing channels on Order Count, Average Order Value, Average Profit per Order, Average Profit Margin, and Return Rate, with a supporting cross tab breaking margin down by channel and customer segment together.
 
-### Question 1: Does marketing channel drive different order economics, and does that hold across every customer segment?
+Results
+Channel Performance Comparison
 
-**Visualize Data**
+Insights
 
-A PivotTable comparing all ten marketing channels (Affiliate, Direct, Email Marketing, Facebook Ads, Google Ads, Instagram, Organic Search, Referral, TikTok, YouTube) on Order Count, Average Order Value, Average Profit per Order, Average Profit Margin, and Return Rate. A supporting cross tab further broke margin down by channel and customer segment together, to check whether the overall pattern was hiding something underneath.
+Every metric came back nearly flat across all ten channels: Average Order Value ranged from $1,273.11 to $1,289.12, Average Profit Margin from 44.89% to 45.35%, Return Rate from 6.61% to 7.06%.
+The supporting cross tab confirmed this held true within every customer segment individually too, ruling out the possibility that channel effects were canceling out in the overall average.
+Marketing channel does not meaningfully predict order value, profitability, or return likelihood in this business, which rules out channel based budget reallocation as a useful lever.
 
-| Channel | Order Count | Avg Order Value | Avg Profit per Order | Avg Profit Margin % | Return Rate |
-|---|---|---|---|---|---|
-| Affiliate | 4.96% | $1,289.12 | $555.72 | 45.11% | 6.66% |
-| Direct | 14.85% | $1,273.11 | $549.86 | 45.19% | 7.06% |
-| Email Marketing | 8.12% | $1,285.47 | $550.70 | 44.96% | 6.73% |
-| Facebook Ads | 12.06% | $1,283.55 | $551.87 | 44.89% | 6.87% |
-| Google Ads | 14.94% | $1,286.32 | $550.40 | 44.96% | 6.83% |
-| Instagram | 9.99% | $1,280.81 | $549.63 | 45.07% | 6.70% |
-| Organic Search | 20.09% | $1,285.35 | $551.99 | 45.07% | 6.95% |
-| Referral | 8.10% | $1,281.58 | $552.81 | 45.22% | 6.61% |
-| TikTok | 3.94% | $1,283.83 | $553.97 | 45.14% | 6.90% |
-| YouTube | 2.95% | $1,274.02 | $549.06 | 45.35% | 6.86% |
-| **Grand Total** | **100.00%** | **$1,282.50** | **$551.32** | **45.07%** | **6.85%** |
+### 2. How does customer segment relate to actual profitability, and what is driving the gap?
+Built from a primary PivotTable comparing the four customer segments on profitability metrics, with a supporting table breaking down Average Discount, Discount Rate, and Product Cost Rate by segment.
 
-**Results**
+Results
+Discount Rate by Segment
 
-Every metric came back nearly flat across all ten channels. Average Order Value ranged from $1,273.11 to $1,289.12, a 1.3% spread. Average Profit Margin ranged from 44.89% to 45.35%. Return Rate ranged from 6.61% to 7.06%. The supporting cross tab confirmed this held true within every customer segment individually as well, Business and Consumer customers consistently showed roughly 46% margin and Premium and VIP customers consistently showed roughly 43% margin, regardless of which of the ten channels the order came through.
+Insights
 
-**Insights**
+Premium and VIP customers generated meaningfully less profit per order ($523 to $528) than Business and Consumer customers ($565 to $566), despite spending slightly more per order before any discount.
+The cause: Premium and VIP customers received discount rates roughly four percentage points higher (17.7% of gross sales versus 13.7%).
+Product Cost Rate, checked as an alternative explanation, came back nearly identical across all four segments (48.62% to 48.69%), ruling it out, so the gap is caused entirely by discount policy, not by anything measurable about who these customers are.
 
-Marketing channel does not meaningfully predict order value, profitability, or return likelihood in this business, and this was checked, not assumed, by confirming the flat pattern held at the segment level too, not just in the overall average. This rules out channel based budget reallocation as a useful lever and shifts the analytical focus toward customer level factors instead.
+### 3. What does RFM segmentation and CLV to CAC reveal about customer value?
+I built a dedicated RFM scoring model across all 24,911 customers, scoring Recency, Frequency, and Monetary value using PivotTable aggregation and percentile based thresholds, then classified customers into six behavioral segments and compared value using a Calculated Field built directly into a PivotTable.
 
-**Recommendation**
+Note on the CLV to CAC Ratio: the overall average came out to 288.9, far beyond the 3 to 1 ratio generally considered healthy in real marketing analytics. This was investigated and traced to acquisition costs in this dataset being unrealistically small relative to lifetime value, a property of how the dataset was constructed. The absolute ratio is not a usable benchmark, but the relative comparison between segments remains valid, since the same scale issue affects every segment equally.
 
-Deprioritize channel based budget reallocation entirely. Since no channel shows a meaningful advantage in order value, profit, margin, or return rate, spend decisions between Google Ads, Facebook Ads, Instagram, and the rest should be made on acquisition cost efficiency rather than any expectation of different order quality.
+Results
+Value Index by Customer Segment
 
-### Question 2: How does customer segment relate to actual profitability, and what is driving the gap?
+Insights
 
-**Visualize Data**
+Champions represent 13.53% of customers but generate 23.16% of total monetary value, a Value Index of 1.71, meaning they contribute 71% more than their group size alone would predict.
+At Risk customers, despite an average of 456 days since their last order, ranked second highest on both CLV to CAC Ratio (435.89) and Value Index (1.64), behind only Champions, proof that they are dormant, not low value.
+Lost customers ranked lowest on every measure, and Acquisition Cost was found to be nearly flat across all six segments, meaning the business is not currently targeting acquisition spend by customer type at all.
 
-A primary PivotTable comparing the four customer segments (Business, Consumer, Premium, VIP) on Order Count, Average Order Value, Total Profit, Average Profit per Order, Average Margin, and Return Rate. A supporting table broke down Average Discount, Discount Rate, and Product Cost Rate by segment to identify the mechanism behind any gap found.
+### 4. Which factors drive the highest return rates?
+Built from three PivotTables: return rate by region, order count by return reason, and return rate grouped by year, with a supporting check breaking reason mix down by year.
 
-![Discount Rate by Segment](assets/Q2_Discount_Rate.png)
+Results
+Return Rate Trend by Year
 
-**Results**
+Insights
 
-Premium and VIP customers generated meaningfully less profit per order ($523 to $528) than Business and Consumer customers ($565 to $566), a 7.2% relative gap, despite Premium and VIP actually spending slightly more per order before any discount ($1,423 to $1,430 in gross sales, versus $1,347 to $1,355 for Business and Consumer). The supporting table found the cause: Premium and VIP customers received discount rates roughly four percentage points higher (17.7% of gross sales versus 13.7%). Product cost rate, checked as an alternative explanation, came back nearly identical across all four segments (48.62% to 48.69%) once measured directly, ruling it out. A further check controlling for cart size confirmed the discount gap held even when comparing orders of the same size, and loyalty point activity was checked and also ruled out, showing no meaningful difference by segment.
+Return rate by region ranged narrowly from 6.40% to 7.11%, and return reason counts fell within about 100 orders of each other across all eight categories, ruling out both as the explanation.
+Return rate climbed steadily and consistently year over year, from 6.62% in 2021 and 2022 up to 7.15% in 2025.
+The reason mix stayed essentially constant across every year, meaning the rise is broad based rather than driven by any single cause getting worse, a real and growing structural cost rather than a stable one.
 
-**Insights**
+### 5. Does shipping speed erode profit margin, and is it priced appropriately?
+Built from a PivotTable comparing the four shipping methods on Order Count, Average Gross Sales, Average Shipping Cost, and Average Profit Margin.
 
-The segment profitability gap is caused entirely by discount policy, not by product cost, not by cart size, and not by loyalty point redemption, all three were tested directly and ruled out. Since Premium and VIP customers already spend more per order before any discount, and show no measurable difference in age, order value, or lifetime value from other segments, the extra discounting does not appear justified by anything measurable about who these customers are.
+Results
+Shipping Cost vs. Margin
 
-**Recommendation**
+Insights
 
-Test a reduced discount rate for Premium and VIP customers, moving from the current 17.7% of gross sales toward the 13% to 14% range seen in Business and Consumer segments, on a sample group, while tracking order frequency and retention over the following months. If retention holds, this represents close to the full profitability gap as recoverable margin.
+Average Gross Sales stayed nearly flat across all four shipping methods, meaning customers are not paying meaningfully more for faster shipping.
+Average Shipping Cost more than doubled from Economy ($16.44) to Same Day ($36.65), while Profit Margin fell in direct step, from 45.68% down to 43.54%.
+Same Day shipping in particular appears to be priced without fully accounting for its true fulfillment cost, since the extra cost is coming directly out of profit rather than being passed through.
 
-### Question 3: What does RFM segmentation and CLV to CAC reveal about customer value?
+### 6. Which marketing campaigns actually drove profitable orders?
+Built from a PivotTable comparing all sixteen named marketing campaigns on profitability and discount metrics.
 
-**Visualize Data**
+Results
+Campaign Margin, Sorted
 
-Recency, Frequency, and Monetary values were aggregated per customer using a PivotTable, then scored 1 through 5 using percentile breakpoints calculated from the actual data distribution rather than fixed thresholds. A snapshot date was fixed at January 1, 2026, one day after the latest order in the dataset (December 31, 2025), rather than using the live current date, so the analysis stays reproducible regardless of when the workbook is reopened. Customers were classified into six behavioral segments (Champions, Loyal Customers, At Risk, Needs Attention, New or Promising, Lost) using pattern based logic rather than a simple score total, since a raw sum concentrated too heavily in the middle to produce useful groups. Customer Lifetime Value and Customer Acquisition Cost were pulled in via INDEX and MATCH, and a segment level summary table was built comparing Customer Count percentage, Sum of Monetary percentage, Average CLV, Average CAC, Average CLV to CAC Ratio, Average Frequency, and Average Recency.
+Insights
 
-![Value Index by Customer Segment](assets/Q3_Value_Index.png)
+Referral_Program ranked highest on profit margin (45.35%) while also carrying one of the lower average discounts ($230.60).
+FB_Dynamic ranked lowest on margin (44.47%) with an above average discount ($249.39).
+Unlike marketing channel, specific named campaigns do show a real, if moderate, difference in profitability, Referral_Program earns its results through customer driven referrals rather than heavy discounting, while FB_Dynamic and Promo_Email lean on discounting for a below average return.
 
-**Results**
+### 7. Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
+Built from a PivotTable joining order line item data to the product catalog, comparing all 15 product categories on Line Item Count, Total Net Sales, Total Profit, Return Rate, and Average Margin.
 
-Champions represent 13.53% of customers but generate 23.16% of total monetary value, a Value Index of 1.71, meaning they contribute 71% more than their group size alone would predict. At Risk customers, despite an average of 456 days since their last order, ranked second highest on both CLV to CAC Ratio (435.89) and Value Index (1.64), behind only Champions. Lost customers ranked lowest on every measure (Value Index of 0.42, average of 687 days since last order). Acquisition cost was found to be nearly flat across all six segments (roughly $42 regardless of segment), meaning the business is not currently targeting acquisition spend by customer type at all.
+Results
+Category Margin Ranking
 
-One number required a specific caveat. The overall average CLV to CAC ratio came out to 288.9, far beyond the 3 to 1 ratio generally considered healthy in real marketing analytics. This was investigated and found to stem from acquisition costs in this dataset being unrealistically small ($5 to $80) relative to lifetime value (averaging over $7,700), a property of how the dataset was constructed rather than a realistic business outcome. The absolute ratio is not a usable benchmark, but the relative comparison between segments remains valid, since the same scale issue affects every segment equally.
+Sales vs. Profit by Category
 
-**Insights**
+Top 5 Products by Total Profit
 
-RFM segmentation worked as intended here, successfully separating customers by genuine behavioral value rather than surface level labels, made possible by this dataset's high repeat purchase rate. The clearest actionable finding is the At Risk segment: these are customers who have already proven themselves highly valuable by both individual return and proportional business impact, they simply have not ordered recently, making them the most cost efficient and best justified group for a win back campaign, rather than a broad, unfocused retention effort.
+Insights
 
-**Recommendation**
+Profit margin varies dramatically by category, from 34.15% (Electronics) to 52.77% (Grocery), an 18.62 percentage point spread, the largest gap found anywhere in this project, and line item count and return rate both stayed flat across categories, ruling out volume or returns as the explanation.
+Electronics, despite having the lowest margin percentage of any category, generates the single highest total profit in dollar terms (roughly $14.1 million), and four of the five single highest profit generating products in the entire catalog are Electronics items.
+Margin percentage and total profit dollars are not the same measure, a category can be simultaneously your least efficient and your largest profit contributor, so budget allocation needs to weigh both rather than treating either number alone as the full picture.
 
-Launch a win back campaign targeting the At Risk segment specifically, rather than lapsed customers broadly. This group ranks second highest in the business on both CLV to CAC Ratio and Value Index, behind only Champions, meaning retention spend here is both high impact and low risk compared to targeting less proven customer groups.
+Throughout this project, I strengthened several Excel skills:
 
-### Question 4: Which factors drive the highest return rates?
-
-**Visualize Data**
-
-Three PivotTables were built: return rate by region, order count by return reason, and return rate grouped by year to check for a trend over time. A supporting check broke return reason mix down by year as well, to test whether any rising trend was concentrated in one specific cause.
-
-![Return Rate Trend by Year](assets/Q4_Return_Rate.png)
-
-**Results**
-
-Return rate by region ranged narrowly from 6.40% (East) to 7.11% (Central and North), a 0.71 percentage point spread. Return reason counts, across all eight categories from Wrong Product to Damaged Product, fell within about 100 orders of each other (1,138 to 1,237), with no single cause dominating. The year over year breakdown told a different story: return rate climbed steadily and consistently, from 6.62% in 2021 and 2022 up to 7.15% in 2025. The follow up check confirmed this increase was broad based, the proportional mix of return reasons stayed essentially constant across every year, meaning the rise was not driven by any single cause getting worse.
-
-**Insights**
-
-Returns in this business are not a regional or single cause problem, both were tested directly and ruled out, but they are a real and growing structural cost, up roughly 8% in relative terms since 2021. Since the increase is broad based rather than concentrated, an effective response needs to be company wide (clearer product descriptions, tighter quality control, more realistic delivery estimates) rather than targeted at one region or one failure type, and it should be treated as increasingly urgent given the consistent upward trend rather than deprioritized as a stable cost.
-
-**Recommendation**
-
-Treat rising return rates as an ongoing, company wide priority rather than a stable cost to budget around. Since the increase is broad based across every region and cause rather than concentrated in one area, invest in systemic fixes, clearer product descriptions and sizing guidance, tighter quality control, and more realistic delivery estimates, applied consistently, rather than a targeted fix aimed at a single region or failure type.
-
-### Question 5: Does shipping speed erode profit margin, and is it priced appropriately?
-
-**Visualize Data**
-
-A PivotTable comparing the four shipping methods (Economy, Standard, Express, Same Day) on Order Count, Average Gross Sales, Average Shipping Cost, and Average Profit Margin.
-
-![Shipping Cost vs. Margin](assets/Q5_Shipping_Speed.png)
-
-**Results**
-
-Average Gross Sales stayed nearly flat across all four shipping methods ($1,368.56 to $1,380.80), meaning customers are not paying meaningfully more for faster shipping. Average Shipping Cost, however, more than doubled from Economy ($16.44) to Same Day ($36.65). Profit Margin fell in direct step with shipping speed, from 45.68% (Economy) down to 43.54% (Same Day).
-
-**Insights**
-
-Faster shipping is genuinely eroding margin, and the mechanism is clear and mechanistic rather than a data artifact, shipping cost rises sharply with speed while the amount customers pay does not rise to match it, so the extra cost comes directly out of profit. Same Day shipping in particular appears to be priced without fully accounting for its true fulfillment cost.
-
-**Recommendation**
-
-Audit Express and Same Day shipping pricing specifically. Since customers are not currently paying meaningfully more for faster shipping while its cost more than doubles, introducing a surcharge or a minimum order threshold to qualify for expedited shipping would let the business recover margin currently being absorbed rather than passed through.
-
-### Question 6: Which marketing campaigns actually drove profitable orders?
-
-**Visualize Data**
-
-A PivotTable comparing all sixteen named marketing campaigns (excluding a Default Campaign catch all label for untracked orders) on Order Count, Average Order Value, Average Profit per Order, Total Profit, Average Profit Margin, and Average Discount.
-
-![Campaign Margin, Sorted](assets/Q6_Campaign_ROI.png)
-
-**Results**
-
-Referral_Program ranked highest on profit margin (45.35%) while also carrying one of the lower average discounts ($230.60). FB_Dynamic ranked lowest on margin (44.47%) with an above average discount ($249.39). Across all sixteen campaigns, a moderate correlation (negative 0.459) was found between average discount and average margin, campaigns leaning on deeper discounts tended to run lower margins, a real but less pronounced version of the pattern already confirmed at the customer segment level in Question 2.
-
-**Insights**
-
-Unlike marketing channel in Question 1, which showed no real signal at all, specific named campaigns within those channels do show a real, if moderate, difference in profitability. Referral_Program stands out as the strongest performer, earning its results through customer driven referrals rather than heavy discounting, while FB_Dynamic and Promo_Email lean more heavily on discounting for a below average return. This is the most direct, literal answer to how marketing budget should be allocated found anywhere in this project, and the recommendation is to shift incremental budget toward Referral_Program while re evaluating discount depth on FB_Dynamic and Promo_Email specifically.
-
-**Recommendation**
-
-Shift incremental marketing budget toward Referral_Program, the strongest performer on margin with the lowest reliance on discounting of any campaign tested. Separately, re evaluate discount depth on FB_Dynamic and Promo_Email, both lean on above average discounting for a below average return, and are the two weakest performers in this comparison.
-
-### Question 7: Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
-
-**Visualize Data**
-
-A PivotTable built from order line item data, joined to the product catalog for category, comparing all 15 product categories on Line Item Count, Total Net Sales, Total Profit, Return Rate, and Average Margin (calculated per line item, consistent with how margin is defined everywhere else in this project).
-
-![Category Margin Ranking](assets/Q7_Category_Margin.png)
-
-**Results**
-
-Profit margin varies dramatically by category, from 34.15% (Electronics) to 52.77% (Grocery), an 18.62 percentage point spread, the largest gap found anywhere in this project. Line item count stayed fairly even across categories (roughly 5.76% to 7.70% share each), ruling out volume as the explanation. Return rate also stayed flat by category (6.55% to 7.23%), so this is a genuine margin story, not a returns story. A supporting check found that Electronics, despite having the lowest margin percentage of any category, still generates the single highest total profit in dollar terms (roughly $14.1 million), more than any other category, driven entirely by its much larger sales volume.
-
-**Insights**
-
-Product category carries a real, structural difference in profitability that has nothing to do with how well something is marketed, lower cost, everyday categories naturally return a larger share of each sale as profit, while higher ticket categories return less. The Electronics finding is an important complicating detail, margin percentage and total profit dollars are not the same measure, and a category can be simultaneously your least efficient and your largest profit contributor.
-
-**Recommendation**
-
-Weight marketing and promotional effort toward higher margin categories such as Grocery, Office Supplies, and Toys & Games, rather than treating category choice as neutral. At the same time, recognize that Electronics remains a major profit contributor in absolute terms, so the goal is a more deliberate balance between margin and scale, not simply reducing investment in lower margin categories.
-
-**Supporting Analysis: Sales vs. Profit by Category, and Top 5 Products**
-
-Two additional PivotTables were built to stress test the category margin finding before finalizing a recommendation. The first, comparing Total Sales and Total Profit by category side by side, confirmed that Electronics leads every other category in both measures (roughly $41.1 million in sales, $14.1 million in profit), nearly double the next highest category, Jewelry, in profit dollars, despite sitting at the bottom on margin percentage.
-
-![Sales vs. Profit by Category](assets/Sales_vs_Profit.png)
-
-The second, a Top 5 Products by Total Profit ranking built from individual product records, reinforced the same pattern from a different angle: four of the five single highest profit generating products in the entire catalog are Electronics items (a gaming console, a smart watch, a smartphone, and a camera), with the fifth being a Jewelry pendant, the same two categories that rank lowest on margin.
-
-![Top 5 Products by Total Profit](assets/Top5_Products.png)
-
-Together, these two checks matter directly for the overarching question of how marketing budget should be allocated. A margin only view would suggest de-emphasizing Electronics. A profit dollars view shows Electronics is simultaneously the single most valuable category to this business in absolute terms. The correct read is not that one number is right and the other wrong, it is that budget allocation needs to weigh both, protecting and continuing to invest in Electronics given its scale, while shifting incremental, growth oriented spend toward higher margin categories where a marketing dollar converts more efficiently into profit.
-
-## What I Learned
-
-This project reinforced that a flat, unremarkable result at the surface level is not the end of an investigation, it is a prompt to check one layer deeper. The clearest example was Question 1, where checking channel performance within each customer segment, rather than stopping at the overall average, confirmed the flat result was genuine rather than hiding a canceled out effect. The opposite lesson came from the regional margin check late in this project, where an apparently large and interesting 4.38 percentage point gap turned out to be entirely explained by regional sales tax differences embedded in how the dataset defined net sales, not a real profitability difference, and was set aside once the mechanism was traced and understood rather than reported as a finding.
-
-I also learned the practical limits of Excel formulas at scale. Building customer level RFM scores for 24,911 customers using the same per row formula approach that worked for a 913 row project would have been impractically slow, which is why the Recency, Frequency, and Monetary aggregation for Question 3 was done with a PivotTable first, and only the scoring logic layered on top as formulas, a more scalable pattern for large datasets that I would default to earlier next time.
-
-Finally, this project sharpened the distinction between a metric describing one customer (like the CLV to CAC Ratio) and a metric describing a group's proportional impact (like the Value Index in Question 3), two numbers that can tell genuinely different stories about the same segment and are both needed for a complete picture.
+PivotTable Aggregation: Summarized 138,116 transaction rows and 397,569 line items into clear breakdowns by channel, segment, time, shipping method, campaign, and category, including at a customer level scale (24,911 customers) that would have been impractically slow with per row formulas alone.
+XLOOKUP: Joined order items to the product catalog and the main transaction file, and pulled Customer Acquisition Cost in from a separate customer file, based on shared IDs across multiple sheets.
+Calculated Fields: Built a live, native PivotTable field to calculate Value Index directly, after learning that dividing two percentage based fields does not work as a standard calculated field, and that averaging a ratio across individual orders instead of individual customers can silently distort the result.
+Data Validation: Learned to trace a surprising number back to its source before trusting it, after a 4.38 percentage point regional margin gap turned out to be a sales tax artifact, and an extreme CLV to CAC ratio turned out to be a scaling artifact in how the dataset was built.
 
 ## Conclusions
+Insights:
+From the analysis, several general insights were gathered:
 
-Across all seven questions, a consistent pattern emerged. Broad, surface level categories, which marketing channel a customer came through, which sales platform they purchased on, which region they live in, do not meaningfully predict profitability in this business. Specific, granular factors do: which named campaign drove the order, how deeply a specific customer segment is discounted, how a specific customer has behaved over time, how a specific shipping method is priced relative to its true cost, and which product category an order falls into. This distinction matters directly for the overarching question this project set out to answer, since it means budget and policy decisions should be made at the level of individual campaigns and specific policies, not broad categories, because that is the level at which real differences actually exist in this data.
-
-Four findings in particular point to the same underlying inefficiency, repeated across four separate parts of the business. In product strategy, marketing effort appears to be applied evenly across categories despite an 18.62 percentage point margin gap between the best and worst performer, meaning equal effort produces very different returns depending on where it is aimed. In marketing spend, one campaign (FB_Dynamic) relies on above average discounting and still delivers the weakest margin of any campaign, while another (Referral_Program) achieves the strongest margin with comparatively little discounting at all, evidence that discount dependent growth is being funded in a place where the data does not support it. In customer retention, an At Risk segment generates 1.65 times its proportional share of value despite being inactive for over a year, nearly matching Champions, while a Lost segment generates only 0.43 times its share, two groups that would look identical if only current activity were considered, but that clearly are not identical in value. In pricing, Premium and VIP customers receive a discount rate roughly four percentage points deeper than Business and Consumer customers, despite spending more per order beforehand, a gap with no measurable behavioral justification.
-
-Taken together, these four findings are not four unrelated issues. They are the same pattern appearing in four different areas: resources, whether marketing effort, discount dollars, or retention spend, are being allocated as though groups are uniform, when the data consistently shows they are not. That repetition across product, marketing, retention, and pricing is the central finding of this project, more so than any single result on its own.
+1. Channel Performance: Marketing channel does not meaningfully predict order value, profitability, or return likelihood, ruling out channel based budget reallocation as a lever.
+2. Segment Profitability: Premium and VIP customers are discounted roughly four percentage points more than Business and Consumer customers, with no measurable behavioral justification, explaining the entire segment profitability gap.
+3. Customer Value: Champions generate 71% more value than their size predicts, and At Risk customers, despite 456 days of inactivity, rank second in the business on proportional value, a clear win back opportunity.
+4. Return Rates: Returns are not concentrated by region or cause, but have climbed steadily every year since 2021, a growing structural cost rather than a stable one.
+5. Shipping Economics: Profit margin falls in direct step with shipping speed, since shipping cost rises sharply while what customers pay does not, with Same Day shipping the biggest contributor.
+6. Campaign ROI: Specific campaigns show real differences in profitability even though broad channel does not, Referral_Program outperforms on margin with minimal discounting, while FB_Dynamic underperforms despite above average discounting.
+7. Category Margin: Profit margin varies by 18.62 percentage points across product categories, and Electronics is simultaneously the least efficient category on margin and the single largest profit contributor in dollar terms.
 
 ## Closing Thoughts
-
-This project combined large scale PivotTable aggregation, percentile based customer scoring, cross sheet lookups, and repeated verification against independently calculated numbers throughout. Two of the most valuable moments in the project were not the headline findings themselves, but the points where a plausible looking result (the regional margin gap, the extreme CLV to CAC ratio) was investigated rather than accepted, and turned out to need an honest caveat rather than a celebration. That kind of verification, tracing a surprising number back to its source before trusting it, is the skill I most want a reader of this project to take away from it.
+This project combined large scale PivotTable aggregation, percentile based customer scoring, and cross sheet lookups across a dataset more than one hundred times larger than previous work, and extending the analysis with a Calculated Field built directly into a PivotTable added a layer of genuine customer value modeling that surfaced a real business finding: this business repeatedly allocates marketing effort, discount dollars, and retention spend as though customer segments, campaigns, and product categories are uniform, when the data consistently shows they are not, a pattern repeated across product, marketing, retention, and pricing. Beyond the technical work of joining multiple files, building an interactive dashboard, and modeling customer value entirely with native Excel tools, this project reinforced the importance of validating a surprising number against its source before trusting it, two apparent findings in this project turned out to be artifacts of how the dataset was built, and were set aside once traced, rather than reported as real results. For a business stakeholder, the four findings together point to the same underlying fix: stop treating broad categories as uniform, and start allocating resources at the level where the real differences in this data actually live.
