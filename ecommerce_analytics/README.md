@@ -14,24 +14,24 @@ Below are the questions I want to answer in my project:
 7. Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
 
 ## Tools I Used
-Excel: For data cleaning, joining files with XLOOKUP, and summarizing data with PivotTables.
-Excel Charts: To build the interactive dashboard, including a Line chart, Bar and Column charts, and a Combo chart, color coded to highlight best and worst performers throughout.
-Excel Formulas (RFM Analysis): PERCENTILE based scoring, INDEX/MATCH, and a Calculated Field built directly into a PivotTable to build a customer segmentation and value model, with no external tools required.
+**Excel:** For data cleaning, joining files with XLOOKUP, and summarizing data with PivotTables.
+**Excel Charts:** To build the interactive dashboard, including a Line chart, Bar and Column charts, and a Combo chart, color coded to highlight best and worst performers throughout.
+**Excel Formulas (RFM Analysis):** PERCENTILE based scoring, INDEX/MATCH, and a Calculated Field built directly into a PivotTable to build a customer segmentation and value model, with no external tools required.
 
 ## Workbook Structure
 The file is organized into the following sheets:
 
-ecommerce_sales_customer_analytics_150k: The main transaction level table (138,116 rows): order details, customer segment, region, sales channel, marketing channel, campaign name, return status, profit, and margin.
-customer_master: Raw customer reference data (demographics, region, Customer Acquisition Cost).
-product_catalog: Raw product reference data (category, subcategory, brand, cost, rating).
-order_items: Line item level table (397,569 rows), joined to product_catalog and the main transaction file to support the product category analysis.
-Q1_Channel_Performance / Q1_Channel_x_Segment: Channel level order economics, overall and by segment.
-Q2_Segment_Profitability / Q2_Margin_Drivers / Q2_Discount_Chart: Segment level profitability and the discount rate driving the gap.
-Q3_RFM_Base / RFM Scoring / Q3_Segment_Value: Customer level RFM aggregation, scoring, and the final segment value summary.
-Q4_Returns_by_Region / Q4_Returns_by_Reason / Q4_Returns_by_Year / Q4_Reason_by_Year: Return rate broken down four different ways.
-Q5_Shipping_Margin: Shipping method economics and margin impact.
-Q6_Chart: Campaign level margin comparison.
-Q7_Category_Margin / Sales_vs_Profit_Category / Top5_Products_Chart: Product category margin and two supporting checks.
+**ecommerce_sales_customer_analytics_150k:** The main transaction level table (138,116 rows): order details, customer segment, region, sales channel, marketing channel, campaign name, return status, profit, and margin.
+**customer_master:** Raw customer reference data (demographics, region, Customer Acquisition Cost).
+**product_catalog:** Raw product reference data (category, subcategory, brand, cost, rating).
+**order_items:** Line item level table (397,569 rows), joined to product_catalog and the main transaction file to support the product category analysis.
+**Q1_Channel_Performance / Q1_Channel_x_Segment:** Channel level order economics, overall and by segment.
+**Q2_Segment_Profitability / Q2_Margin_Drivers / Q2_Discount_Chart:** Segment level profitability and the discount rate driving the gap.
+**Q3_RFM_Base / RFM Scoring / Q3_Segment_Value:** Customer level RFM aggregation, scoring, and the final segment value summary.
+**Q4_Returns_by_Region / Q4_Returns_by_Reason / Q4_Returns_by_Year / Q4_Reason_by_Year:** Return rate broken down four different ways.
+**Q5_Shipping_Margin:** Shipping method economics and margin impact.
+**Q6_Chart:** Campaign level margin comparison.
+**Q7_Category_Margin / Sales_vs_Profit_Category / Top5_Products_Chart:** Product category margin and two supporting checks.
 Dashboard: The final interactive dashboard, pulling together the four featured findings into one view.
 
 View the file here: Ecommerce_Marketing_Analytics.xlsx
