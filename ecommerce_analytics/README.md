@@ -83,6 +83,7 @@ Marketing channel does not meaningfully predict order value, profitability, or r
 Built from a primary PivotTable comparing the four customer segments on profitability metrics, with a supporting table breaking down Average Discount, Discount Rate, and Product Cost Rate by segment.
 
 **Results**
+
 ![Discount Rate by Segment](assets/Q2_Discount_Rate.png)
 
 **Insights**
@@ -97,6 +98,7 @@ I built a dedicated RFM scoring model across all 24,911 customers, scoring Recen
 **Note on the CLV to CAC Ratio:** the overall average came out to 288.9, far beyond the 3 to 1 ratio generally considered healthy in real marketing analytics. This was investigated and traced to acquisition costs in this dataset being unrealistically small relative to lifetime value, a property of how the dataset was constructed. The absolute ratio is not a usable benchmark, but the relative comparison between segments remains valid, since the same scale issue affects every segment equally.
 
 **Results**
+
 ![Value Index by Customer Segment](assets/Q3_Value_Index.png)
 
 **Insights**
@@ -109,6 +111,7 @@ Lost customers ranked lowest on every measure, and Acquisition Cost was found to
 Built from three PivotTables: return rate by region, order count by return reason, and return rate grouped by year, with a supporting check breaking reason mix down by year.
 
 **Results**
+
 ![Return Rate Trend by Year](assets/Q4_Return_Rate.png)
 
 **Insights**
@@ -121,6 +124,7 @@ The reason mix stayed essentially constant across every year, meaning the rise i
 Built from a PivotTable comparing the four shipping methods on Order Count, Average Gross Sales, Average Shipping Cost, and Average Profit Margin.
 
 **Results**
+
 ![Shipping Cost vs. Margin](assets/Q5_Shipping_Speed.png)
 
 **Insights**
@@ -133,6 +137,7 @@ Same Day shipping in particular appears to be priced without fully accounting fo
 Built from a PivotTable comparing all sixteen named marketing campaigns on profitability and discount metrics.
 
 **Results**
+
 ![Campaign Margin, Sorted](assets/Q6_Campaign_ROI.png)
 
 **Insights**
@@ -145,6 +150,7 @@ Unlike marketing channel, specific named campaigns do show a real, if moderate, 
 Built from a PivotTable joining order line item data to the product catalog, comparing all 15 product categories on Line Item Count, Total Net Sales, Total Profit, Return Rate, and Average Margin.
 
 **Results**
+
 ![Category Margin Ranking](assets/Q7_Category_Margin.png)
 
 ![Sales vs. Profit by Category](assets/Sales_vs_Profit.png)
@@ -165,7 +171,9 @@ Calculated Fields: Built a live, native PivotTable field to calculate Value Inde
 Data Validation: Learned to trace a surprising number back to its source before trusting it, after a 4.38 percentage point regional margin gap turned out to be a sales tax artifact, and an extreme CLV to CAC ratio turned out to be a scaling artifact in how the dataset was built.
 
 ## Conclusions
+
 **Insights:**
+
 From the analysis, several general insights were gathered:
 
 1. Channel Performance: Marketing channel does not meaningfully predict order value, profitability, or return likelihood, ruling out channel based budget reallocation as a lever.
@@ -177,4 +185,5 @@ From the analysis, several general insights were gathered:
 7. Category Margin: Profit margin varies by 18.62 percentage points across product categories, and Electronics is simultaneously the least efficient category on margin and the single largest profit contributor in dollar terms.
 
 ## Closing Thoughts
+
 This project combined large scale PivotTable aggregation, percentile based customer scoring, and cross sheet lookups across a dataset more than one hundred times larger than previous work, and extending the analysis with a Calculated Field built directly into a PivotTable added a layer of genuine customer value modeling that surfaced a real business finding: this business repeatedly allocates marketing effort, discount dollars, and retention spend as though customer segments, campaigns, and product categories are uniform, when the data consistently shows they are not, a pattern repeated across product, marketing, retention, and pricing. Beyond the technical work of joining multiple files, building an interactive dashboard, and modeling customer value entirely with native Excel tools, this project reinforced the importance of validating a surprising number against its source before trusting it, two apparent findings in this project turned out to be artifacts of how the dataset was built, and were set aside once traced, rather than reported as real results. For a business stakeholder, the four findings together point to the same underlying fix: stop treating broad categories as uniform, and start allocating resources at the level where the real differences in this data actually live.
