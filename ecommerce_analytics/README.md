@@ -51,7 +51,7 @@ Category Margin Ranking (Line chart, gradient colored by performance)
 Value Index by Customer Segment (Bar chart)
 Discount Rate by Segment (Column chart)
 Campaign Margin Comparison (Bar chart)
-![Dashboard Overview](assets/dashboard_overview.png)
+![Dashboard Overview](dashboard_overview.png)
 
 ## The Analysis
 ### 1. Does marketing channel drive different order economics, and does that hold across every customer segment?
