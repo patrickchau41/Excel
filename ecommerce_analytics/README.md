@@ -1,16 +1,17 @@
 ## The Overview
 This project is a PivotTable based analysis and dashboard build on an e-commerce dataset (sourced from Kaggle), covering 138,116 orders from 2021 through 2025. The raw data arrived as five related files (main transactions, customer master, order items, product catalog, and summary statistics), with product level detail split out from the main transaction file. I combined what was needed using XLOOKUP and PivotTables, then built an interactive dashboard to explore marketing channel performance, customer segment profitability, RFM based customer value, return rates, shipping economics, campaign ROI, and product category margin, all in service of one question: how should this business allocate its marketing budget and manage its customer relationships to maximize profitability.
 
-## The Questions
+The Questions
+
 Below are the questions I want to answer in my project:
 
-Does marketing channel drive different order economics, and does that hold across every customer segment?
-How does customer segment relate to actual profitability, and what is driving the gap?
-What does RFM segmentation and CLV to CAC reveal about customer value?
-Which factors drive the highest return rates?
-Does shipping speed erode profit margin, and is it priced appropriately?
-Which marketing campaigns actually drove profitable orders?
-Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
+1. Does marketing channel drive different order economics, and does that hold across every customer segment?
+2. How does customer segment relate to actual profitability, and what is driving the gap?
+3. What does RFM segmentation and CLV to CAC reveal about customer value?
+4. Which factors drive the highest return rates?
+5. Does shipping speed erode profit margin, and is it priced appropriately?
+6. Which marketing campaigns actually drove profitable orders?
+7. Does profit margin vary by product category, and does that reveal a marketing allocation opportunity?
 
 ## Tools I Used
 Excel: For data cleaning, joining files with XLOOKUP, and summarizing data with PivotTables.
