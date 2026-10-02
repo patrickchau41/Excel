@@ -176,13 +176,13 @@ Data Validation: Learned to trace a surprising number back to its source before 
 
 From the analysis, several general insights were gathered:
 
-1. Channel Performance: Marketing channel does not meaningfully predict order value, profitability, or return likelihood, ruling out channel based budget reallocation as a lever.
-2. Segment Profitability: Premium and VIP customers are discounted roughly four percentage points more than Business and Consumer customers, with no measurable behavioral justification, explaining the entire segment profitability gap.
-3. Customer Value: Champions generate 71% more value than their size predicts, and At Risk customers, despite 456 days of inactivity, rank second in the business on proportional value, a clear win back opportunity.
-4. Return Rates: Returns are not concentrated by region or cause, but have climbed steadily every year since 2021, a growing structural cost rather than a stable one.
-5. Shipping Economics: Profit margin falls in direct step with shipping speed, since shipping cost rises sharply while what customers pay does not, with Same Day shipping the biggest contributor.
-6. Campaign ROI: Specific campaigns show real differences in profitability even though broad channel does not, Referral_Program outperforms on margin with minimal discounting, while FB_Dynamic underperforms despite above average discounting.
-7. Category Margin: Profit margin varies by 18.62 percentage points across product categories, and Electronics is simultaneously the least efficient category on margin and the single largest profit contributor in dollar terms.
+1. **Channel Performance:** Marketing channel does not meaningfully predict order value, profitability, or return likelihood, ruling out channel based budget reallocation as a lever.
+2. **Segment Profitability:** Premium and VIP customers are discounted roughly four percentage points more than Business and Consumer customers, with no measurable behavioral justification, explaining the entire segment profitability gap.
+3. **Customer Value:** Champions generate 71% more value than their size predicts, and At Risk customers, despite 456 days of inactivity, rank second in the business on proportional value, a clear win back opportunity.
+4. **Return Rates:** Returns are not concentrated by region or cause, but have climbed steadily every year since 2021, a growing structural cost rather than a stable one.
+5. **Shipping Economics:** Profit margin falls in direct step with shipping speed, since shipping cost rises sharply while what customers pay does not, with Same Day shipping the biggest contributor.
+6. **Campaign ROI:** Specific campaigns show real differences in profitability even though broad channel does not, Referral_Program outperforms on margin with minimal discounting, while FB_Dynamic underperforms despite above average discounting.
+7. **Category Margin:** Profit margin varies by 18.62 percentage points across product categories, and Electronics is simultaneously the least efficient category on margin and the single largest profit contributor in dollar terms.
 
 ## Closing Thoughts
 
