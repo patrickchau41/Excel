@@ -33,7 +33,7 @@ Q6_Chart: Campaign level margin comparison.
 Q7_Category_Margin / Sales_vs_Profit_Category / Top5_Products_Chart: Product category margin and two supporting checks.
 Dashboard: The final interactive dashboard, pulling together the four featured findings into one view.
 
-**View the file here:** ![Ecommerce Analytics](ecommerce_marketing_enalytics_github.xlsx)
+**View the file here:** ![Ecommerce Marketing Analytics](ecommerce_marketing_analytics_github.xlsx)
 
 ## Data Cleaning
 The raw dataset needed real joining and verification work before analysis:
