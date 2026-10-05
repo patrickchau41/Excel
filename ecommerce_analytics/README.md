@@ -52,7 +52,7 @@ The final dashboard features the four sharpest findings from the full analysis, 
 - Discount Rate by Segment (Column chart)
 - Campaign Margin Comparison (Bar chart)
 
-![Dashboard Overview](dashboard_overview.png)
+![Dashboard Overview](Dashboard_Overview.png)
 
 ## The Analysis
 ### 1. Does marketing channel drive different order economics, and does that hold across every customer segment?
